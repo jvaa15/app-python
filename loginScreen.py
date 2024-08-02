@@ -1,85 +1,104 @@
 import tkinter as tk
+from tkinter import messagebox
 
-# the code must be understandable
-# organization and pattern in the declarations of functions and methods like: interface in the high part of the code and the functions on the down part.
-# variables names like the example: example_example or Example.
-# constants like the example EXAMPLE
-##
+class SignUp:
+    def __init__(self, master):
+        self.master = master
+        self.master.title("Sign Up Window")
+        self.master.geometry("350x200")
+        self.master.resizable(0, 0)
 
+        # Dictionary to store the variables from the sign up
+        self.user_data = {}
 
-class login():
+        # Interface elements
+        self.label_title = tk.Label(self.master, text='Sign Up', font='arial')
+        self.label_title.grid(row=0, column=1)
+
+        self.label_username = tk.Label(self.master, text='Username', font='arial')
+        self.label_username.grid(row=1, column=0, pady=5)
+
+        self.label_password = tk.Label(self.master, text='Password', font='arial')
+        self.label_password.grid(row=2, column=0, pady=5)
+        
+        self.entry_username = tk.Entry(self.master)
+        self.entry_username.grid(row=1, column=1)
+
+        self.entry_password = tk.Entry(self.master, show='*')
+        self.entry_password.grid(row=2, column=1)
+
+        self.button_sign_up = tk.Button(self.master, text='Sign Up', command=self.store_user_data)
+        self.button_sign_up.grid(row=3, column=1)
+
+    # Functions
+    def store_user_data(self):
+        username = self.entry_username.get()
+        password = self.entry_password.get()
+        
+        if username and password:
+            self.user_data[username] = password
+            print("User Data Stored:", self.user_data)
+            self.entry_username.delete(0, tk.END)
+            self.entry_password.delete(0, tk.END)
+            messagebox.showinfo("Success", "User registered successfully!")
+        else:
+            messagebox.showwarning("Input Error", "Please enter both username and password")
+        
+    def button_for_login():
+        pass
+        
+
+        
+class Login:
     def __init__(self, master, sign_up_instance):
         self.master = master
-        self.master.title("Janelinha")
+        self.master.title("Login Window")
         self.master.geometry("350x200")
         self.master.resizable(0, 0)
 
         self.sign_up_instance = sign_up_instance
         
-        self.title = tk.Label(self.master, text='Login', fg='blue', font='arial')
-        self.title.grid(row=0, column=1)
+        # Interface elements
+        self.label_title = tk.Label(self.master, text='Login', fg='blue', font='arial')
+        self.label_title.grid(row=0, column=1)
         
-        self.text_user = tk.Label(self.master, text='Username', font='arial')    # 'Username' text in interface
-        self.text_user.grid(row=1, column=0, pady=5)    # placing 'Username' in window, row 1, column 0
+        self.label_username = tk.Label(self.master, text='Username', font='arial')
+        self.label_username.grid(row=1, column=0, pady=5)
 
-        self.text_password = tk.Label(self.master, text='Password', font='arial')   # 'Password' text in interface
-        self.text_password.grid(row=2, column=0, pady=5)    # placing 'Password' in window, row 2, column 0
+        self.label_password = tk.Label(self.master, text='Password', font='arial')
+        self.label_password.grid(row=2, column=0, pady=5)
         
-        self.entry_user = tk.Entry(self.master)    # 'Username' entry text
-        self.entry_user.grid(row=1, column=1)    # Placing 'Username' entry in window
+        self.entry_username = tk.Entry(self.master)
+        self.entry_username.grid(row=1, column=1)
 
-        self.entry_password = tk.Entry(self.master)    # 'Password' entry text
-        self.entry_password.grid(row=2, column=1)    # Placing 'Password' entry in window
+        self.entry_password = tk.Entry(self.master, show='*')
+        self.entry_password.grid(row=2, column=1)
 
-        self.exit_button = tk.Button(self.master, text='Fechar', command=self.exit_app)    # Button with 'exit_app' function, to close the window
-        self.exit_button.grid(column= 0, row= 4)    # Placing button in window
+        self.button_login = tk.Button(self.master, text='Login', command=self.check_login)
+        self.button_login.grid(row=3, column=1)
 
-
-        
-     # functions for buttons
+        self.button_close = tk.Button(self.master, text='Close', command=self.close_app)
+        self.button_close.grid(column=0, row=4)
      
-    def exit_app(self):
+    # Functions
+    def close_app(self):
         self.master.destroy()
 
-class sign_up():
-    def __init__(self, master):
-        self.master = master
-        self.master.title("Sign up")
-        self.master.geometry("350x200")    
-        self.master.resizable(0, 0)
-        self.security = {}
+    def check_login(self):
+        username = self.entry_username.get()
+        password = self.entry_password.get()
 
-        self.text_user = tk.Label(self.master, text='Username', font='arial')    # 'Username' text in interface
-        self.text_user.grid(row=1, column=0, pady=5)    # placing 'Username' in window, row 1, column 0
-
-        self.text_password = tk.Label(self.master, text='Password', font='arial')   # 'Password' text in interface
-        self.text_password.grid(row=2, column=0, pady=5)    # placing 'Password' in window, row 2, column 0
-        
-        self.entry_user = tk.Entry(self.master)    # 'Username' entry text
-        self.entry_user.grid(row=1, column=1)    # Placing 'Username' entry in window
-
-        self.entry_password = tk.Entry(self.master)    # 'Password' entry text
-        self.entry_password.grid(row=2, column=1)    # Placing 'Password' entry in window
-
-        self.button_sign = tk.Button(self.master, text='Sign')
-        self.button_sign.grid(row=3, column=1)
-
-        self.h1 = tk.Label(self.master, text='Sign up', font='arial')
-        self.h1.grid(row=0, column=1)
-
-    def sign_up(self):
-        self
-        
-        
-        
-
+        if username in self.sign_up_instance.user_data and self.sign_up_instance.user_data[username] == password:
+            messagebox.showinfo("Success", "Login successful!")
+        else:
+            messagebox.showerror("Error", "Invalid username or password")
 
 if __name__ == '__main__':
     root_sign_up = tk.Tk()
     root_login = tk.Tk()
     
-    sign_up_instance = sign_up(root_sign_up)
-    login_instance = login(root_login, sign_up_instance)
+    sign_up_instance = SignUp(root_sign_up)
+    login_instance = Login(root_login, sign_up_instance)
     
-    root_login.mainloop()
     root_sign_up.mainloop()
+    root_login.mainloop()
